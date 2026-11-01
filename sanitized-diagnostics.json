@@ -1,0 +1,92 @@
+{
+  "upstream-0.5.3-console.json": [
+    {
+      "level": "error",
+      "text": "TypeError: Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.",
+      "line": 11,
+      "column": 481
+    }
+  ],
+  "patched-fragment-console.json": [
+    {
+      "level": "error",
+      "text": "ReferenceError: Can't find variable: EventTarget",
+      "line": 11,
+      "column": 481
+    },
+    {
+      "level": "error",
+      "text": "TypeError: Super expression must either be null or a function",
+      "line": 11,
+      "column": 481
+    }
+  ],
+  "patched-events-console.json": [
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    },
+    {
+      "level": "error",
+      "text": "TypeError: 'undefined' is not a function (evaluating 't.matches(e)')",
+      "line": 2,
+      "column": 53810
+    }
+  ],
+  "final-console.json": [],
+  "regression": {
+    "device": "LG 55UB9500-CA",
+    "webOS": "1.4.0-2341",
+    "firmware": "05.06.10",
+    "configuration": true,
+    "eventDetail": true,
+    "listenerContext": true,
+    "cancellation": true,
+    "listenerDeduplication": true,
+    "listenerRemoval": true
+  }
+}

@@ -1,0 +1,54 @@
+webosbrew/youtube-webos #160: real-device investigation and experimental 0.5.3 compatibility patch
+Test date: 2026-11-01 (Asia/Hong_Kong)
+Issue: https://github.com/webosbrew/youtube-webos/issues/160
+
+Device
+LG 55UB9500-CA; firmware 05.06.10; webOS 1.4.0-2341 (afro-ashley).
+Linux 3.10.19-32.afro.6, ARMv7; WAM uses QtWebProcess/WebKit.
+UA: LG Browser/7.00.00 (webOS.TV-2014), _TV_O18/05.06.10 (LG, 55UB9500-CA, wireless)
+Upstream source: v0.5.3, commit d19f2552a306ae81d40bd687b26dce066f6f6389.
+Known-working comparison: SiberianMishka v0.3.2-webkit1-legacy.2.
+
+What was reproduced
+Both released 0.5.3 JavaScript bundles compiled successfully using new Function in the TV's own WebKit engine without executing them. This particular failure is therefore not an initial syntax error.
+On launching the exact 0.5.3 release, the injected script reported:
+TypeError: Invalid attempt to iterate non-iterable instance. In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+The exception's stack points into configuration initialization, including the loop over configOptions.keys(). A small bundled Map/keys test in a fresh iframe passed, so this is not evidence that every Map iterator is broken; startup ordering/polyfill interaction remains a possible underlying cause.
+
+After replacing configuration Map iteration with Map.forEach, the next blocker was:
+TypeError: '[object DocumentFragmentConstructor]' is not a constructor (evaluating 'new DocumentFragment').
+Replacing that with document.createDocumentFragment() exposed:
+ReferenceError: Can't find variable: EventTarget
+TypeError: Super expression must either be null or a function
+After adding an old-WebKit event fallback, the next errors were:
+TypeError: 'undefined' is not a function (evaluating 't.matches(e)').
+Aliasing Element.prototype.webkitMatchesSelector to matches removed these errors.
+
+Candidate patch
+1. Use Map.forEach for configuration defaults and event-fragment initialization.
+2. Use document.createDocumentFragment instead of the DOM constructor.
+3. Load conditional compatibility code before other userscript modules: CustomEvent via createEvent/initCustomEvent; EventTarget backed by a document fragment, with callback context, listener deduplication and removal; matches via webkitMatchesSelector.
+4. Explicitly select @babel/runtime-corejs3 for TransformAsyncModulesPlugin. Without this, the clean local build attempted to resolve @babel/runtime relative to the runtime-corejs3 directory and failed under pnpm.
+
+Validation
+- Production webpack build passed (bundle-size warnings only).
+- TypeScript project check passed.
+- ESLint on changed source/config reported no errors; the upstream lint configuration ignored userScript.ts, which was checked by TypeScript.
+- Prettier checks passed.
+- ES-Check confirmed both output JavaScript bundles are ES5 compatible.
+- On-device isolated regression passed: configuration initializes; CustomEvent detail; listener callback context; cancellation return value; duplicate listener suppression; listener removal.
+- Final patched build restarted successfully on the TV. Its DOM contains .ytaf-ui-container and .ytaf-ui-version with v0.5.3.
+- Final startup capture contained none of the TypeError/ReferenceError blockers listed above.
+- The owner manually confirmed that the green-button settings menu and ad blocking work on the patched 0.5.3 test build.
+
+Limits / reviewer notes
+This is an experimental patch for one physical webOS 1.4 device, not a confirmed universal fix for webOS 1/2. SponsorBlock, prolonged playback, all remote-navigation paths, and newer TV regression testing remain unverified. The EventTarget fallback covers the paths exercised here; event.target/currentTarget still refer to the backing document fragment and modern listener options such as once/passive/signal are not implemented. Maintainers may prefer a standards-complete shim or a local app event-emitter abstraction before merging.
+The app ID and internal package version remain youtube.leanback.v4 / 0.5.3. The test filename distinguishes this package from the upstream release. Installation was performed in place; no uninstall or clearing of app/login data was performed.
+The final compatibility script is installed on the TV. The previous working legacy package can be reinstalled in place if a regression appears.
+
+Attached files
+webos1-compatibility.patch: candidate source patch, including the build-runtime adjustment.
+sanitized-diagnostics.json: relevant error messages and the hardware regression result; excludes account storage, authentication details, and network response bodies.
+youtube.leanback.v4_0.5.3-webos1-test.ipk: experimental test installer.
+
+Nothing has been posted to GitHub. This report and patch are prepared for review and submission.
