@@ -4,6 +4,10 @@ Investigation of [webosbrew/youtube-webos#160](https://github.com/webosbrew/yout
 
 Test device: **LG 55UB9500-CA**, webOS **1.4.0-2341**, firmware **05.06.10**.
 
+## Updated test IPK
+
+[Download and installation instructions](releases/v0.5.4-webos1-compat.1/RELEASE-NOTES.md). The crash workaround requires a one-time root-shell setup; installing the IPK alone does not enable it. Tested runtime changes on webOS 1.4; webOS 2 remains unverified.
+
 ## November 2026 update
 
 For the new YouTube restart loop and slow controls, see the [tested workaround and rollback instructions](workarounds/2026-11/README.md). This uses basman83's debugger helper plus an optional minimal animation change. The original IPK remains unchanged; no fullscreen override is included.

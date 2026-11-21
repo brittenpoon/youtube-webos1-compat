@@ -1,0 +1,35 @@
+name: Publish compatibility test release
+on:
+  push:
+    branches: [main]
+    paths: ['releases/v0.5.4-webos1-compat.1/**', '.github/workflows/publish-compat.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch exact committed release files
+        env:
+          REPO: ${{ github.repository }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          git init release-repo
+          cd release-repo
+          git remote add origin "https://github.com/$REPO.git"
+          git fetch --depth 1 origin "$COMMIT"
+          git checkout --detach FETCH_HEAD
+      - name: Verify and publish prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          cd release-repo/releases/v0.5.4-webos1-compat.1
+          sha256sum -c SHA256SUMS
+          if gh release view v0.5.4-webos1-compat.1 >/dev/null 2>&1; then
+            echo "Release already exists; leaving it unchanged."
+            exit 0
+          fi
+          gh release create v0.5.4-webos1-compat.1 youtube.leanback.v4_0.5.4_all.ipk SHA256SUMS --target "$COMMIT" --prerelease --title "webOS 1 compatibility test — November crash workaround" --notes-file RELEASE-NOTES.md
