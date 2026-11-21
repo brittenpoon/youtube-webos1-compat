@@ -4,6 +4,10 @@ Investigation of [webosbrew/youtube-webos#160](https://github.com/webosbrew/yout
 
 Test device: **LG 55UB9500-CA**, webOS **1.4.0-2341**, firmware **05.06.10**.
 
+## November 2026 update
+
+For the new YouTube restart loop and slow controls, see the [tested workaround and rollback instructions](workarounds/2026-11/README.md). This uses basman83's debugger helper plus an optional minimal animation change. The original IPK remains unchanged; no fullscreen override is included.
+
 ## Findings and changes
 
 The original bundles pass the TV's JavaScript parser, but fail during startup:
