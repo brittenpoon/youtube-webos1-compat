@@ -1,0 +1,9 @@
+{
+  "id": "org.ytaf.compatlauncher",
+  "version": "0.1.2",
+  "vendor": "brittenpoon",
+  "type": "web",
+  "main": "index.html",
+  "title": "YouTube AdFree Compat",
+  "icon": "icon.png"
+}

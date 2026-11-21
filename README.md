@@ -1,3 +1,11 @@
+# Developer Mode two-IPK release
+
+[Download 0.5.3-devmode.1](https://github.com/brittenpoon/youtube-webos1-compat/releases/tag/v0.5.3-devmode.1). Install **both IPKs**, then open **YouTube AdFree Compat**. No root setup is required by this bundle. See [installation instructions and test limitations](releases/v0.5.3-devmode.1/RELEASE-NOTES.md).
+
+This supersedes the older root-helper test release below. WebOS 1.4 has been tested; webOS 2 and a completely unrooted TV still need independent validation.
+
+---
+
 # YouTube webOS 1 compatibility fix
 
 Investigation of [webosbrew/youtube-webos#160](https://github.com/webosbrew/youtube-webos/issues/160), based on **v0.5.3**.

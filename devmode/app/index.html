@@ -1,0 +1,6 @@
+<!doctype html><html><body style="background:#111;color:white;font:28px sans-serif"><p id="status">Starting YouTube compatibility service...</p><script>
+var start=new PalmServiceBridge(), launch=new PalmServiceBridge();
+start.onservicecallback=function(raw){var r=JSON.parse(raw);if(!r.returnValue){document.getElementById('status').textContent='Service failed: '+JSON.stringify(r);return;}document.getElementById('status').textContent='Helper running as UID '+r.uid;launch.call('luna://com.webos.applicationManager/launch',JSON.stringify({id:'youtube.leanback.v4'}));};
+function begin(){start.call('luna://org.ytaf.compatlauncher.service/start','{}');}
+window.addEventListener('webOSRelaunch',begin,false);begin();
+</script></body></html>
