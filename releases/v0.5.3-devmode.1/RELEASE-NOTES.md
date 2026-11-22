@@ -1,4 +1,4 @@
-# 0.5.3-devmode.1 — Developer Mode two-IPK test release
+# 0.5.3-devmode.1 — Developer Mode two-IPK release
 
 Install BOTH IPKs using your usual Developer Mode installer (for example webOS Dev Manager), then open **YouTube AdFree Compat** each time you want to use YouTube.
 
@@ -9,7 +9,7 @@ No root setup or root startup hook is required by this bundle. Keep Developer Mo
 
 This retains the working two-package arrangement: original NetCast app behavior for AdFree and the green-button menu, native video sizing, and the debugger crash workaround. The forced full-animation launch option is removed to improve controls on old hardware. No fullscreen CSS override is included. The failed single-IPK experiment is NOT included.
 
-Playback/sound, AdFree, fullscreen at different resolutions, navigation and the green-button menu were confirmed by the tester on webOS 1.4 with the two-package arrangement. The final YouTube package restores version metadata to 0.5.3 and preserves the original userscript without further minification. The companion ran as a non-root service with the old root helper disabled. The test TV itself is rooted and root access was used for diagnostic/install transport; a completely unrooted TV and webOS 2 have not yet been independently validated. This is therefore a prerelease.
+Playback/sound, AdFree, fullscreen at different resolutions, navigation and the green-button menu were confirmed by the tester on webOS 1.4 with the two-package arrangement. The final YouTube package restores version metadata to 0.5.3 and preserves the original userscript without further minification. The companion ran as a non-root service with the old root helper disabled. The test TV itself is rooted and root access was used for diagnostic/install transport; a completely unrooted TV and webOS 2 have not yet been independently validated.
 
 If you previously installed the older root-helper release, disable that helper before using this launcher to avoid competing debugger sessions. Ordinary Developer Mode users do not need that migration step.
 
